@@ -13,8 +13,8 @@ set(groot, 'defaultLegendFontSizeMode', 'manual');
 %Remove extra whitespace around figures
 set(groot,'defaultAxesLooseInset',[0,0,0,0]);
 %Show grid on figures
-set(groot,'defaultAxesXGrid','on');
-set(groot,'defaultAxesYGrid','on');
+% set(groot,'defaultAxesXGrid','on');
+% set(groot,'defaultAxesYGrid','on');
 
 %%----------------------------------------------------
 %create a signal x[n] of 1000 realisations
@@ -24,9 +24,10 @@ set(groot,'defaultAxesYGrid','on');
 x=rand(1000,1);
 
 figure(1)
-plot(x);
+plot(x,'b');
 title('Realisation of x[n] for 1000 samples');
 xlabel('Sample number');ylabel('Amplitude');
+saveas(gcf,'figfiles/fig1_1.eps')
 
 %% Part1------------------------------------------------------
 %compute the sample mean
