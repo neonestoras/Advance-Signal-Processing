@@ -39,7 +39,7 @@ figure(1)
 for subplot_index=1:3
     means(subplot_index,:)=mean(outputs(:,:,subplot_index),2);
     subplot(2,3,subplot_index)
-    plot(dtime_ax,means(1,subplot_index),'b','Linewidth',1);hold on;
+    plot(dtime_ax,means(1,subplot_index),'Linewidth',1);hold on;
     %Plotting the theoretical mean
     if subplot_index==1
         plot(dtime_ax,0.02*dtime_ax,'r','Linewidth',1);
@@ -52,23 +52,12 @@ for subplot_index=1:3
     str = sprintf('Ensemble mean vs Time\nusing Stochastic Process %d', subplot_index);
     title(str);hold off;
     
-    subplot_index
     
-    subplot(2,3,subplot_index+3)
-    plot(dtime_ax,stds(1,subplot_index),'b','Linewidth',1);hold on;
-    %Plotting the theoretical std
-    if subplot_index==1
-        plot(dtime_ax,(5/sqrt(12))*sin((dtime_ax*pi)/N1),'r','Linewidth',1); 
-    elseif subplot_index==2
-        line([0,100],[0.5,0.5],'Color','red','Linewidth',1);
-    elseif subplot_index==3
-        line([0,100],[(1/3),(1/3)],'Color','red','Linewidth',1);
-    end
+    
+    plot(ensemble_std1,'Linewidth',1); hold on;
+    plot(N,(5/sqrt(12))*sin((N*pi)/N1),'r','Linewidth',1); %Plotting the theoretical std
     xlabel('Discrete time'), ylabel('Magnitude')
-    str = sprintf('Ensemble St.D. vs Time\nusing Stochastic Process %d', subplot_index);
-    title(str);hold off;
-    
-    subplot_index+3
+    title({'Ensemble std vs Time', '(Stochastic Process 1)'})
 end
 
 
