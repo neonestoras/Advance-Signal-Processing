@@ -32,8 +32,8 @@ title({'CCF for sequences x and y'},'Linewidth',1.5);
 ylabel('Correlation, R(\tau)');
 xlabel('Time Lag (\tau)');    
 xlim([-20 20]);
-savefig(figure(1),'figures/fig2_6.fig')
-saveas(figure(1),'figures/forlatex/fig2_6','epsc')
+% savefig(figure(1),'figures/fig2_6.fig')
+% saveas(figure(1),'figures/forlatex/fig2_6','epsc')
 %%
 %effect of filter order
 clc
@@ -52,8 +52,8 @@ for subplot_index=1:length(f_order)
     xlabel('Time Lag (\tau)');
     xlim([-axis_lim(subplot_index) axis_lim(subplot_index)]);
 end
-savefig(figure(2),'figures/fig2_7.fig')
-saveas(figure(2),'figures/forlatex/fig2_7','epsc')
+% savefig(figure(2),'figures/fig2_7.fig')
+% saveas(figure(2),'figures/forlatex/fig2_7','epsc')
 
 %%
 
