@@ -174,10 +174,47 @@ legend('Orientation','horizontal')
 %%  2.3.3 - Yule Walker equations %% 
 %-------------------------------------------------------------------------%
 
+%First for the original sunspot series
+
+%Calculate all reflection coefficients up to p=10
+
+
+for i =1:10
+    [a_or,e_or(i)] = aryule(sunspot(:,2),i); 
+    display(a_or)
+end
+%also calculating the reflection coeff (rc)
+[a_or,e_or,rc_or] = aryule(sunspot(:,2),10);
+pacf_sun_org=-rc_or; %partiaal acf equal to rc*-1
+
+%Secondly the standardised sunspot series (zero mean and unit variance)
+stand_sunspot = (sunspot(:,2) - mean(sunspot(:,2)))./std(sunspot(:,2));
+[a_stand,e_stand,rc_stand] = aryule(stand_sunspot,10);
+pacf_sun_stand=-rc_stand;
+
+figure(3)
+
+stem(pacf_sun_org,'b','Linewidth',1.4); hold on;
+stem(pacf_sun_stand,'r', 'MarkerFaceColor','red','MarkerEdgeColor','none','Linewidth',1.3);
+yline(1.96/sqrt(288), '--g','Linewidth',1.1);  % 95% confidence interval 
+yline(2.575/sqrt(288), '--m','Linewidth',1.1); % 99% confidence interval
+yline(3/sqrt(288),'--k','Linewidth',1.1); % 3 std errors
+
+
+yline(-1.96/sqrt(288), '--g','Linewidth',1.1);
+yline(-2.575/sqrt(288), '--m','Linewidth',1.1);
+yline(-3/sqrt(288),'--k','Linewidth',1.1);
+
+title('PACF of the original and standarised sunspot series model'); 
+ylabel('Correlation');
+xlabel('Time-Lag (k)');
+legend('\fontsize{10}PACF original series','\fontsize{10}PACF standarised series','\fontsize{10}95% confidence interval','\fontsize{10}99% confidence interval','\fontsize{10}3 standard errors');
+legend('Location','eastoutside');
 
 
 
-
+%%  2.3.3 - Find the correct order of model for the standardised data %% 
+%-------------------------------------------------------------------------%
 
 
 
