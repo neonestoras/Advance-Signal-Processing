@@ -213,8 +213,133 @@ legend('Location','eastoutside');
 
 
 
-%%  2.3.3 - Find the correct order of model for the standardised data %% 
+%%  2.3.4 - Find the correct order of model for the standardised data %% 
 %-------------------------------------------------------------------------%
+
+N=length(stand_sunspot);
+
+mdl=[];
+aic=[];
+aic_c=[];
+
+for p= 1:10 %i=1 for a0, p: parameters iteration
+    [A,e(p)] = aryule(stand_sunspot,p);
+    mdl (:,p) = log10(e(p)) + ((p*log10(N))/N); % minimum description length criterion
+    aic (:,p) = log10(e(p)) + (2*p)/N; %Akaike information criterion
+    aic_c (:,p) =  aic(:,p) + (((2*p)*(p+1))/(N-p-1)); %Corrected AIC 
+end
+
+figure(4)
+plot(mdl,'b','LineWidth' ,2.2); hold on;
+plot(aic,'r','LineWidth' ,1.35);
+plot(aic_c,'LineWidth' ,1.5);
+plot(log10(e),'k--','LineWidth' ,1.5)
+legend('MDL', 'AIC','AIC corrected','Loss function','Location','eastoutside')
+title('MDL, AIC and AICc for standarised sunspot series')
+xlabel('Model order');xlim([1 10])
+ylabel('Prediction Error');
+
+% savefig(figure(4),'figures/fig2_11.fig')
+% saveas(figure(4),'figures/forlatex/fig2_11','epsc')
+
+% The correct oder of the model is at the lowest points on the graph
+%the !index! of the minimum point is the right order
+
+[optimal_mdl,min_mdl_index]=min(mdl);
+[optimal_aic,min_aic_index]=min(aic);
+[optimal_aicc,min_aicc_index]=min(aic_c);
+min_mdl_index
+min_aic_index
+min_aicc_index
+
+%%  2.3.5 - Predicting using an AR model %% 
+%-------------------------------------------------------------------------%
+orders=[1 2 10];
+predict_hor= [1 2 5 10];
+predictions=[];
+for subplot_index= 1:length(orders)
+    model= ar(stand_sunspot,orders(subplot_index),'yw');
+    %approach -> 'yw' : The Yule-Walker method
+    for i= 1:length(predict_hor)
+        predictions(i+4*(subplot_index-1),:)=predict(model,stand_sunspot,predict_hor(i));
+    end
+    
+end
+
+figure(5)
+
+for subplot_index= 1:length(predict_hor)
+    
+    subplot(1,length(predict_hor),subplot_index)
+    plot(stand_sunspot,'Linewidth',1.8); hold on;
+    plot(predictions(1+(subplot_index-1),:),'Linewidth',1.2);
+    plot(predictions(5+(subplot_index-1),:),'Linewidth',1.2);
+    plot(predictions(9+(subplot_index-1),:),'Linewidth',1.2);
+    str=sprintf('\n\n Prediction Horison = %d',predict_hor(subplot_index));
+    title(str)
+    xlabel('Sample'); ylabel('Magnitude')
+    xlim([50 70])
+    
+end
+legend('Original','AR(1)','AR(2)', 'AR(10)');
+legend('Location','northoutside','Orientation','horizontal')
+
+figure(6)
+i=1;
+for order_index=1:length(orders)
+    for hor_index= 1:length(predict_hor)
+        subplot(3,4,4*(order_index-1)+hor_index)
+    plot(stand_sunspot,'k','Linewidth',1.25); hold on;
+    plot(predictions(i,:),'r','Linewidth',1);
+    i=i+1;
+    str=sprintf('Moder AR(%d)\nPrediction Horison = %d',orders(order_index),predict_hor(hor_index));
+    title(str)
+    xlabel('Sample'); ylabel('Magnitude')
+    end
+end
+legend('\fontsize{8}Standarised Original Model','\fontsize{8}Standarised Predicted Model')
+legend('Location','southoutside','orientation','horizontal')
+
+%%prediction errors
+mse_1=zeros(1,4);
+mse_2=zeros(1,4);
+mse_10=zeros(1,4);
+for i=1:length(predict_hor)*length(orders)
+    
+    mse= immse(stand_sunspot,predictions(i,:)');
+    
+        if i<5
+            mse_1(i) = mse;
+    
+        elseif (i>4) && (i<9)
+            mse_2(i-4) = mse;
+        
+        elseif (i>8) && (i<13)
+            mse_10(i-8) = mse;
+        
+        end
+    
+end
+
+figure(7)
+bar([mse_1; mse_2; mse_10]');hold on;
+title('Mean Square Error for models of different orders');
+xlabel('Prediction Horizon (years)')
+xticklabels({'1','2','5','10'})
+ylabel('MSE')
+legend('order 1','order 2','order 10','Location','eastoutside');
+
+% savefig(figure(7),'figures/fig2_13.fig')
+% saveas(figure(7),'figures/forlatex/fig2_13','epsc')
+
+
+
+
+
+
+
+
+
 
 
 
