@@ -211,8 +211,9 @@ xlabel('Time-Lag (k)');
 legend('\fontsize{10}PACF original series','\fontsize{10}PACF standarised series','\fontsize{10}95% confidence interval','\fontsize{10}99% confidence interval','\fontsize{10}3 standard errors');
 legend('Location','eastoutside');
 
-
-
+%desplay the order 2 coefficients of the standarised series
+[a_stand_2,e_stand]=aryule(stand_sunspot,2);
+display(a_stand_2)
 %%  2.3.4 - Find the correct order of model for the standardised data %% 
 %-------------------------------------------------------------------------%
 
@@ -270,7 +271,7 @@ figure(5)
 
 for subplot_index= 1:length(predict_hor)
     
-    subplot(1,length(predict_hor),subplot_index)
+    subplot(length(predict_hor),1,subplot_index)
     plot(stand_sunspot,'Linewidth',1.8); hold on;
     plot(predictions(1+(subplot_index-1),:),'Linewidth',1.2);
     plot(predictions(5+(subplot_index-1),:),'Linewidth',1.2);
@@ -278,27 +279,29 @@ for subplot_index= 1:length(predict_hor)
     str=sprintf('\n\n Prediction Horison = %d',predict_hor(subplot_index));
     title(str)
     xlabel('Sample'); ylabel('Magnitude')
-    xlim([50 70])
     
 end
 legend('Original','AR(1)','AR(2)', 'AR(10)');
 legend('Location','northoutside','Orientation','horizontal')
+
+% set(groot, 'defaultFigurePosition', [100, 100, 1500, 460]);
 
 figure(6)
 i=1;
 for order_index=1:length(orders)
     for hor_index= 1:length(predict_hor)
         subplot(3,4,4*(order_index-1)+hor_index)
-    plot(stand_sunspot,'k','Linewidth',1.25); hold on;
-    plot(predictions(i,:),'r','Linewidth',1);
+    plot(stand_sunspot,'k','Linewidth',1.3); hold on;
+    plot(predictions(i,:),'r','Linewidth',1.1);
     i=i+1;
     str=sprintf('Moder AR(%d)\nPrediction Horison = %d',orders(order_index),predict_hor(hor_index));
-    title(str)
+    title(str,'FontSize', 11)
     xlabel('Sample'); ylabel('Magnitude')
     end
 end
-legend('\fontsize{8}Standarised Original Model','\fontsize{8}Standarised Predicted Model')
+legend('\fontsize{10}Standarised Original Model','\fontsize{10}Standarised Predicted Model')
 legend('Location','southoutside','orientation','horizontal')
+legend('Box','off')
 
 %%prediction errors
 mse_1=zeros(1,4);
