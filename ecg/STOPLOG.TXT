@@ -1,1 +1,0 @@
-Run/Stop button has been pressed.

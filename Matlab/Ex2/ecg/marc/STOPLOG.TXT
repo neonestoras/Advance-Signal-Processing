@@ -1,0 +1,3 @@
+Run/Stop button has been pressed.
+Number of blocks requested originally: 514285
+Total number of blocks written: 13510
