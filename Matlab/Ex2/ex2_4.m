@@ -31,7 +31,7 @@ plot(time, closing_prices);
 figure(2)
 subplot(1,2,1)
 [a_or,e_or,rc_or] = aryule(closing_prices,10);
-pacf_cp_org=-rc_or; %partiaal acf equal to rc*-1
+pacf_cp_org=-rc_or; %partial acf equal to rc*-1
 
 %standardise the series (zero mean and unit variance)
 stand_cp = (closing_prices - mean(closing_prices))./std(closing_prices);
