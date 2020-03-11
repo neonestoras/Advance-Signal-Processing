@@ -36,7 +36,7 @@ pacf_cp_org=-rc_or; %partial acf equal to rc*-1
 
 %standardise the series (zero mean and unit variance)
 stand_cp = (closing_prices - mean(closing_prices))./std(closing_prices);
-[a_stand,e_stand,rc_stand] = aryule(stand_cp,10); % a_stand is 
+[a_stand,e_stand,rc_stand] = aryule(stand_cp,10);
 pacf_cp_stand=-rc_stand;
 
 stem(pacf_cp_org,'b','Linewidth',1.4); hold on;
@@ -113,11 +113,5 @@ title('CRLB for a1 coefficient estimate')
 % savefig(figure(3),'figures/fig2_15.fig')
 % saveas(figure(3),'figures/forlatex/fig2_15','epsc')
 
-%obtain a for CRLB estimates with an AR(1) model
 
-%for standarised
-[a_order1_std,e_order1_std] = aryule(stand_cp,1);
-
-%for original data
-[a_order1,e_order1] = aryule(closing_prices,1);
 
