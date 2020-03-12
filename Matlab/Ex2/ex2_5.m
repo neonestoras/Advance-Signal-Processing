@@ -70,14 +70,14 @@ legend('Original HR','Average HR with a=1','Average HR with a=0.6')
 
 
 %identify  peak values
-peaks=zeros(2,3);
+peaks=zeros(3,2);
 %1 for value , 2 for bpm
 [peaks(1,1),I]=max(F_1);
-peaks(2,1)=XI_1(I);
-[peaks(1,2),I]=max(F_2);
+peaks(1,2)=XI_1(I);
+[peaks(2,1),I]=max(F_2);
 peaks(2,2)=XI_2(I);
-[peaks(1,3),I]=max(F_3);
-peaks(2,3)=XI_3(I);
+[peaks(3,1),I]=max(F_3);
+peaks(3,2)=XI_3(I);
 
 %and also std
 hr_std=zeros(1,3);
@@ -210,7 +210,27 @@ end
 legend('\fontsize{11}MDL', '\fontsize{11}AIC','\fontsize{11}AIC corrected','\fontsize{11}Loss function')
 legend('Location','eastoutside','orientation','horizontal','Box','off');
 
+MDL=zeros(3,1);
+[mv,order]=min(mdl);
+for i=1:3
+    MDL(i)=order(:,:,i);
+end
 
+AIC=zeros(3,1);
+[mv,order]=min(aic);
+for i=1:3
+    AIC(i)=order(:,:,i);
+end
+
+AICc=zeros(3,1);
+[mv,order]=min(aic_c);
+for i=1:3
+    AICc(i)=order(:,:,i);
+end
+
+PACF=[4;4;8];
+TRIAL=[1;2;3];
+Orders_T=table(TRIAL,PACF,MDL,AIC,AICc);
 
 
 
