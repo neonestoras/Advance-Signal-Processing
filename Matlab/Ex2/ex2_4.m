@@ -7,7 +7,7 @@ clear all;
 close all;
 
 %Set default sizes
-set(groot, 'defaultFigurePosition', [100, 100, 1200, 300]);
+set(groot, 'defaultFigurePosition', [100, 100, 1200, 310]);
 set(groot, 'defaultAxesFontSize', 14);
 set(groot, 'defaultLegendFontSize', 14);
 set(groot, 'defaultLegendFontSizeMode', 'manual');
@@ -89,7 +89,7 @@ max_or=max(Rx);
 Rx_stand=xcorr(stand_cp,'unbiased');
 max_stand=max(Rx_stand);
 
-N=1:50:1001; %Number of data points
+N=1001:-50:1; %Number of data points(order is reversed in order to be desplayed in correct order on heatmap)
 var_noise = 1:50:1001; %True variance of input driving noise
 
 for N_i=1:length(N)
@@ -104,14 +104,14 @@ end
 %creating the heatmap
 figure(3)
 subplot(1,2,1)
-hm_variance = heatmap(var_noise,N,log10(CRLB_var),'Colormap', parula(256),'ColorbarVisible','on','XLabel','Noise Variance','YLabel','N');
+heatmap(var_noise,N,log10(CRLB_var),'Colormap', parula(256),'ColorbarVisible','on','YLabel','N','XLabel','Noise Variance');
 title('CRLB for estimate of variance of driving noise')
 subplot(1,2,2)
-hm_a = heatmap(var_noise,N,log10(CRLB_a),'Colormap', parula(256),'ColorbarVisible','on','XLabel','Noise Variance','YLabel','N');
+heatmap(var_noise,N,log10(CRLB_a),'Colormap', parula(256),'ColorbarVisible','on','YLabel','N','XLabel','Noise Variance');
 title('CRLB for a1 coefficient estimate')
-
-% savefig(figure(3),'figures/fig2_15.fig')
-% saveas(figure(3),'figures/forlatex/fig2_15','epsc')
+savefig(figure(3),'figures/fig2_15.fig')
+saveas(figure(3),'figures/forlatex/fig2_15','epsc')
+%(??????????add colorbar label????????????)
 
 %obtain a for CRLB estimates with an AR(1) model
 

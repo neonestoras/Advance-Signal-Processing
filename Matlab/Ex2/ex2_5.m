@@ -200,14 +200,13 @@ for subplot_index=1:3
     plot(mdl(:,:,subplot_index),'b','LineWidth' ,2.2); hold on;
     plot(aic(:,:,subplot_index),'r','LineWidth' ,1.35);
     plot(aic_c(:,:,subplot_index),'LineWidth' ,1.5);
-    plot(log10(e(:,subplot_index)),'k--','LineWidth' ,1.5);
     str=sprintf('MDL, AIC and AICc for Trial %d',subplot_index);
     title(str);
     str=sprintf('Model order\n');
     xlabel(str);xlim([1 10]);
     ylabel('Prediction Error');
 end
-legend('\fontsize{11}MDL', '\fontsize{11}AIC','\fontsize{11}AIC corrected','\fontsize{11}Loss function')
+legend('\fontsize{11}MDL', '\fontsize{11}AIC','\fontsize{11}AIC corrected')
 legend('Location','eastoutside','orientation','horizontal','Box','off');
 
 MDL=zeros(3,1);
