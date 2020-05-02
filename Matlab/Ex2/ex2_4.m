@@ -18,7 +18,6 @@ set(groot,'defaultAxesYGrid','on');
 set(groot,'defaultAxesLooseInset',[0,0,0,0]);
 
 
-
 %%  2.4.1 - AR model of NASDAQ financial %% 
 %-------------------------------------------------------------------------%
 load 'NASDAQ.mat';

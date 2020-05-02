@@ -8,7 +8,7 @@
 % of a sequence x = [x[1],x[2],...,x[N]] (input)
 
 function [periodogram, normalised_frequency] = pgm(x)
-    N = length(x); %Length of input sequence
+    N = length(x); %Length of input sequence x
     normalised_frequency = 0:1/N:(N-1)/N;
  
     periodogram = zeros(N,1); %Initialise periodogram vector

@@ -134,27 +134,30 @@ xlim([-200 200])
 [PACF_t2,tlag_2] = parcorr(xRRI_t2_zm,'Method','Yule-Walker','NumLags',10);
 [PACF_t3,tlag_3] = parcorr(xRRI_t3_zm,'Method','Yule-Walker','NumLags',10);
 
+
+
+
 figure (3)
 subplot(1,3,1)
 stem(tlag_1,PACF_t1,'Linewidth',1.9);hold on;
-yline(1.96/sqrt(288), '--k','Linewidth',1.4); % 95% confidence interval
-yline(-1.96/sqrt(288), '--k','Linewidth',1.4);
+yline(1.96/sqrt(length(xRRI_t1_zm)), '--k','Linewidth',1.4); % 95% confidence interval
+yline(-1.96/sqrt(length(xRRI_t1_zm)), '--k','Linewidth',1.4);
 title('PACF estimate of trial 1'); 
 ylabel('Correlation (R(\tau))');
 xlabel('Time Lag (\tau)');
 
 subplot(1,3,2)
 stem(tlag_2,PACF_t2,'Color',orangecol,'Linewidth',1.9);
-yline(1.96/sqrt(288), '--k','Linewidth',1.4); % 95% confidence interval
-yline(-1.96/sqrt(288), '--k','Linewidth',1.4);
+yline(1.96/sqrt(length(xRRI_t2_zm)), '--k','Linewidth',1.4); % 95% confidence interval
+yline(-1.96/sqrt(length(xRRI_t2_zm)), '--k','Linewidth',1.4);
 title('PACF estimate of trial 2'); 
 ylabel('Correlation (R(\tau))');
 xlabel('Time Lag (\tau)');
 
 subplot(1,3,3)
 stem(tlag_3,PACF_t3,'Color',purplecol,'Linewidth',1.8);
-yline(1.96/sqrt(288), '--k','Linewidth',1.4); % 95% confidence interval
-yline(-1.96/sqrt(288), '--k','Linewidth',1.4);
+yline(1.96/sqrt(length(xRRI_t3_zm)), '--k','Linewidth',1.4); % 95% confidence interval
+yline(-1.96/sqrt(length(xRRI_t3_zm)), '--k','Linewidth',1.4);
 title('PACF estimate of trial 3'); 
 ylabel('Correlation (R(\tau))');
 xlabel('Time Lag (\tau)');

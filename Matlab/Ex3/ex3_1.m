@@ -52,6 +52,39 @@ title('512-sample realisation of WGN');
 % savefig(figure(1),'figures/fig3_1.fig')
 % saveas(figure(1),'figures/forlatex/fig3_1','epsc')
 
+
+
+% change of mean and std as function of sample size
+maxsamples=1000;
+sample_m=zeros(1,maxsamples);
+sample_stds=zeros(1,maxsamples);
+for s=1:1:maxsamples
+    wgn=randn(1,s);
+    [p_wgn, f]=pgm(wgn);
+    sample_m(s)=mean(p_wgn);
+    sample_stds(s)=std(p_wgn);
+end
+
+figure(5)
+subplot(1,2,1)%sample mean
+samples_axis=[1:maxsamples];
+plot(samples_axis,sample_m,'Linewidth',1,'Color','g');hold on;
+set(gca,'Color','k');
+xlabel('sample size'), ylabel('Mean of Periodogram')
+title('Mean vs sample size')
+
+hold off;
+
+subplot(1,2,2)
+%uniform distribution std
+plot(samples_axis,sample_stds,'g','Linewidth',1);hold on;
+set(gca,'Color','k');
+xlabel('sample size'), ylabel('std of Periodogram')
+title('Standard deviation vs sample size')
+hold off;
+
+
+
 %% --------------------------------------------------------------------------
 % 3.1 - Averaged periodogram estimates
 
